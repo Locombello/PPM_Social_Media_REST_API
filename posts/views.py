@@ -8,7 +8,6 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all().order_by('-created_at')
     serializer_class = PostSerializer
     
-    # Richiediamo che l'utente sia autenticato e applichiamo il nostro permesso personalizzato [cite: 65, 80]
     permission_classes = [permissions.IsAuthenticated, IsAuthorOrModerator]
 
     def perform_create(self, serializer):
