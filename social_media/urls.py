@@ -1,17 +1,12 @@
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
 
 urlpatterns = [
+    # endpoint dell'API per la sezione di amministrazione
     path('admin/', admin.site.urls),
     
-    # Includiamo le rotte della nostra API per post, commenti e follow
+    # endpoint dell'API per l'app posts
     path('api/', include('posts.urls')),
-    
-    # Endpoint per l'autenticazione JWT
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'), # Questo è il login
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    # endpoint dell'API per l'app users
+    path('api/', include('users.urls')),
 ]

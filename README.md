@@ -1,14 +1,13 @@
 # Social Media API - Progetto Back-end PPM 2026
-<p>Studente: Lorenzo Colombani</p>
-<p>Tipo di progetto: REST API</p>
-<p>Framework utilizzato: Django / Django REST Framework</p>
+**Studente**: Lorenzo Colombani
+**Tipo di progetto**: REST API
+**Framework utilizzato**: Django / Django REST Framework
 
 ### Descrizione del progetto
-<p>L'applicazione è una REST API per una piattaforma di Social Media che consente la gestione di post, commenti, interazioni ("mi piace") e relazioni di follow tra utenti.
-   Il sistema implementa una separazione dei permessi basata sui ruoli utente (Utente Standard e Moderatore).</p>
+L'applicazione è una REST API per una piattaforma di Social Media che consente la gestione di post, commenti, interazioni ("mi piace") e relazioni di follow tra utenti. Il sistema implementa una separazione dei permessi basata sui ruoli utente (Utente Standard e Moderatore).
 
 ## Database e Account di Demo
-<p>Il progetto include un database SQLite pre-popolato denominato db.sqlite3. Al suo interno sono già presenti record di test (post, commenti, interazioni) e i seguenti account demo per la valutazione:</p>
+Il progetto include un database SQLite pre-popolato denominato db.sqlite3. Al suo interno sono già presenti record di test (post, commenti, interazioni) e i seguenti account demo per la valutazione:
 
 | Username | Password | Ruolo | Descrizione |
 | ----------- | ----------- | ----------- | ----------- |
@@ -17,7 +16,7 @@
 | user | user12345 | Moderator | Utente avanzato che può rimuovere contenuti inappropriati. |
 
 ## Documentazione degli Endpoint API
-<p>L'API risponde al prefisso base /api/ e prevede la seguente mappatura:</p>
+L'API risponde al prefisso base /api/ e prevede la seguente mappatura:
 
 | Metodo | URL | Autenticazione | Ruolo Consentito | Descrizione |
 | ----------- | ----------- | ----------- | ----------- | ----------- |
@@ -28,7 +27,7 @@
 | POST | /api/comments/ | Sì | Qualsiasi | Rilascia un commento agganciato a un post specifico.
 
 ## Flusso di Test con HTTPie
-<p>Di seguito sono riportati i comandi per testare il corretto funzionamento dei permessi e dell'autenticazione tramite riga di comando HTTPie:</p>
+Di seguito sono riportati i comandi per testare il corretto funzionamento dei permessi e dell'autenticazione tramite riga di comando HTTPie:
 
 1. Richiesta del Token JWT (Login):
 ```

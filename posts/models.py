@@ -28,12 +28,3 @@ class Like(models.Model):
     class Meta:
         # Evita che un utente metta più di un like allo stesso post
         unique_together = ('user', 'post')
-
-class Follow(models.Model):
-    follower = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='following', on_delete=models.CASCADE)
-    followed = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='followers', on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        # Evita che un utente segua la stessa persona più volte
-        unique_together = ('follower', 'followed')

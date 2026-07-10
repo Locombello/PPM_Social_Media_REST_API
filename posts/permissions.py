@@ -8,13 +8,8 @@ class IsAuthorOrModerator(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
             return True
-            
-        is_author = False
-        if hasattr(obj, 'author'):
-            is_author = (obj.author == request.user)
-        elif hasattr(obj, 'follower'):
-            is_author = (obj.follower == request.user)
-            
+    
+        is_author = (obj.author == request.user)
         is_moderator = (request.user.role == 'moderator')
         
         return is_author or is_moderator
