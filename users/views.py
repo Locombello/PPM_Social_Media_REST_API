@@ -1,17 +1,38 @@
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
 from django.shortcuts import get_object_or_404
 from .models import CustomUser, Follow
 from .serializers import RegisterSerializer, FollowSerializer, UserSerializer
 from .permissions import IsFollowParticipantOrModerator
 
 # ==========================================
-# REGISTRAZIONE
+# REGISTRAZIONE E LOGOUT
 # ==========================================
 class RegisterView(generics.CreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = RegisterSerializer
     permission_classes = [permissions.AllowAny]
+
+class LogoutView(APIView):
+    """Invalida il Refresh Token in modo che non possa più essere usato."""
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        try:
+            refresh_token = request.data.get('refresh')
+            
+            if not refresh_token:
+                return Response({"error": "Devi fornire il refresh token."}, status=status.HTTP_400_BAD_REQUEST)
+                
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+
+            return Response({"status": "Logout completato con successo."}, status=status.HTTP_205_RESET_CONTENT)
+            
+        except Exception as e:
+            return Response({"error": "Token non valido o già scaduto."}, status=status.HTTP_400_BAD_REQUEST)
 
 # ==========================================
 # VISUALIZZAZIONE PROFILI
