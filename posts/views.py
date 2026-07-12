@@ -14,9 +14,6 @@ class FeedView(generics.ListAPIView):
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-    def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
-
 class PersonalFeedView(generics.ListAPIView):
     """Gestisce la visualizzazione dei post dei soli utenti che seguo (feed personale)"""
     serializer_class = PostSerializer
@@ -33,6 +30,9 @@ class ProfileView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         return Post.objects.filter(author=self.request.user).order_by('-created_at')
+    
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
 
 class PostDetailView(generics.RetrieveUpdateDestroyAPIView):
     """Gestisce la lettura, modifica e cancellazione di un SINGOLO post tramite ID"""
