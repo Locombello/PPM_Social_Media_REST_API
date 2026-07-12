@@ -70,7 +70,7 @@ Il progetto include un database SQLite pre-popolato con dati di demo denominato 
 | user | user12345 | Moderator | Utente base che può creare post e interagire con altri utenti. |
 
 ## Online Deployment
-L'API è stata distribuita tramite PythonEverywhere ed è pubblicamente accessibile al seguente link:
+L'API è stata distribuita tramite PythonAnywhere ed è pubblicamente accessibile al seguente link:
 https://locomotive.pythonanywhere.com/
 
 
