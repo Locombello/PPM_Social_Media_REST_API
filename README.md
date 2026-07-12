@@ -155,6 +155,18 @@ Passa il contenuto del post nel body della richiesta.
 http POST http://127.0.0.1:8000/api/posts/ "Authorization: Bearer TUO_TOKEN_ACCESS_QUI" content="Questo è il mio primo post da HTTPie!"
 ```
 
+**Modificare un Post:**
+Aggiorna il contenuto di un tuo post (es. il post con ID = 1) utilizzando il metodo PATCH. Consentito solo all'autore del post o a un Moderatore.
+```bash
+http PATCH http://127.0.0.1:8000/api/posts/1/ "Authorization: Bearer TUO_TOKEN_ACCESS_QUI" content="Questo è il testo aggiornato del mio post!"
+```
+
+**Cancellare un Post:**
+Elimina un post specifico (es. il post con ID = 1). Consentito solo all'autore del post o a un Moderatore.
+```bash
+http DELETE http://127.0.0.1:8000/api/posts/1/ "Authorization: Bearer TOKEN_UTENTE_STANDARD_QUI"
+```
+
 **Aggiungere (o rimuovere) un Like a un post (Toggle):**
 Esempio su un post con ID = 1.
 ```bash
@@ -177,6 +189,18 @@ http DELETE http://127.0.0.1:8000/api/users/following/2/ "Authorization: Bearer 
 Esempio per commentare il post con ID = 1.
 ```bash
 http POST http://127.0.0.1:8000/api/posts/1/comments/ "Authorization: Bearer TUO_TOKEN_ACCESS_QUI" content="Bel post, sono d'accordo!"
+```
+
+**Modificare un Commento:**
+Modifica il testo di un tuo commento (es. il commento con ID = 3 sotto al post con ID = 1). Consentito solo all'autore del commento o a un Moderatore.
+```bash
+http PATCH http://127.0.0.1:8000/api/posts/1/comments/3/ "Authorization: Bearer TUO_TOKEN_ACCESS_QUI" content="Ho cambiato idea, questo è il commento modificato."
+```
+
+**Cancellare un Commento:**
+Elimina un commento specifico (es. il commento con ID = 3 sotto al post con ID = 1). Consentito solo all'autore del commento o a un Moderatore.
+```bash
+http DELETE http://127.0.0.1:8000/api/posts/1/comments/3/ "Authorization: Bearer TUO_TOKEN_ACCESS_QUI"
 ```
 
 ### 4. Testare i Permessi e i Ruoli
