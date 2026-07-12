@@ -95,7 +95,7 @@ class LikeToggleView(generics.CreateAPIView):
             like_esistente.delete()
             return Response(
                 {"status": f"Like rimosso dal post {post_id}"}, 
-                status=status.HTTP_204_NO_CONTENT
+                status=status.HTTP_200_OK
             )
         else:
             nuovo_like = Like.objects.create(user=request.user, post=post)
