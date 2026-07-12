@@ -17,7 +17,7 @@
       "type": "bearer",
       "credentials": {
         "username": "",
-        "password": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzgzODUzOTE5LCJpYXQiOjE3ODM4NTM2MTksImp0aSI6IjY3MzBjNDQ0MDM3NDQyNzk4ZmU1YzEyNTczODJkYTMwIiwidXNlcl9pZCI6IjIifQ.INnJwhKV3u-8VZBHjD5tY8TI1GMtkUvyE3z6EAgMZ7c"
+        "password": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzgzODcxNzA5LCJpYXQiOjE3ODM4NzE0MDksImp0aSI6Ijg5MDYyZjJiMDVhMjQ3MzQ5NDExYzFhZTI2Zjg1ZjRmIiwidXNlcl9pZCI6IjIifQ.vjiVXJU94RDfeqMmU5z41HTDl8Kk83MrhLJsjVnLo5o"
       },
       "target": "headers"
     },
@@ -822,6 +822,35 @@
           },
           "text": {
             "value": "",
+            "format": "application/json"
+          },
+          "form": {
+            "isMultipart": false,
+            "fields": []
+          },
+          "graphql": {
+            "query": "",
+            "variables": ""
+          }
+        }
+      },
+      {
+        "name": "",
+        "url": "https://locomotive.pythonanywhere.com/api/logout/",
+        "method": "POST",
+        "headers": [],
+        "queryParams": [],
+        "pathParams": [],
+        "auth": {
+          "type": "inherited"
+        },
+        "body": {
+          "type": "text",
+          "file": {
+            "name": ""
+          },
+          "text": {
+            "value": "{\n    \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc4Mzk1NzgwOSwiaWF0IjoxNzgzODcxNDA5LCJqdGkiOiI2MjUzYzkyMmFiMjU0OWI2YjNiMTQ2NDA1ZDUzZjhmOCIsInVzZXJfaWQiOiIyIn0.mEfbbflQOxMsoLMzi7ork4r9XqH2AxaenZGrTE3UvjU\"\n}",
             "format": "application/json"
           },
           "form": {
