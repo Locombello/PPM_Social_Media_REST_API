@@ -70,8 +70,9 @@ Il progetto include un database SQLite pre-popolato con dati di demo denominato 
 | user | user12345 | Moderator | Utente base che può creare post e interagire con altri utenti. |
 
 ## Online Deployment
-L'API è stata distribuita ed è pubblicamente accessibile al seguente link:
-[link al deploy]
+L'API è stata distribuita tramite PythonEverywhere ed è pubblicamente accessibile al seguente link:
+https://locomotive.pythonanywhere.com/
+
 
 ## Documentazione degli Endpoint
 Di seguito la mappatura completa di tutti gli endpoint esposti dall'API. Il prefisso base per tutte le rotte è `/api/`.
@@ -126,19 +127,26 @@ Di seguito la mappatura completa di tutti gli endpoint esposti dall'API. Il pref
 ## Flusso di Test con HTTPie
 Per testare le API da riga di comando in modo semplice e leggibile, si consiglia l'utilizzo di **HTTPie**.
 
-*   **Link di installazione:** [https://httpie.io/cli](https://httpie.io/cli)
+*   **Link di installazione:** https://httpie.io/cli
 *   **Base URL Locale:** `http://127.0.0.1:8000/api/`
+*   **Base URL Deploy:** `https://locomotive.pythonanywhere.com/api/`
 
 ### 1. Registrazione di un nuovo account
 Crea un nuovo utente fornendo username, email e password.
 ```bash
+# locale
 http POST http://127.0.0.1:8000/api/register/ username="nuovoutente" email="nuovo@example.com" password="PasswordSicura123"
+# deploy
+http POST https://locomotive.pythonanywhere.com/api/register/ username="nuovoutente" email="nuovo@example.com" password="PasswordSicura123"
 ```
 
 ### 2. Effettuare il Login (Ottenere i Token)
 Usa le credenziali appena create (o quelle di demo) per ottenere il token JWT di accesso e di refresh.
 ```bash
+# locale
 http POST http://127.0.0.1:8000/api/login/ username="user" password="user12345"
+# deploy
+http POST https://locomotive.pythonanywhere.com/api/login/ username="user" password="user12345"
 ```
 *Copia il valore del campo `"access"` restituito nella risposta JSON. Per tutte le rotte protette, devi includere l'access token nell'header `Authorization` preceduto dalla parola `Bearer`.*
 
@@ -146,61 +154,91 @@ http POST http://127.0.0.1:8000/api/login/ username="user" password="user12345"
 
 **Leggere il feed globale dei post:**
 ```bash
-http GET http://127.0.0.1:8000/api/posts/ "Authorization: Bearer TUO_TOKEN_ACCESS_QUI"
+# locale
+http GET http://127.0.0.1:8000/api/posts/ "Authorization: Bearer ACCESS_TOKEN"
+# deploy
+http GET https://locomotive.pythonanywhere.com/api/posts/ "Authorization: Bearer ACCESS_TOKEN"
 ```
 
 **Creare un nuovo Post:**
 Passa il contenuto del post nel body della richiesta.
 ```bash
-http POST http://127.0.0.1:8000/api/posts/ "Authorization: Bearer TUO_TOKEN_ACCESS_QUI" content="Questo è il mio primo post da HTTPie!"
+# locale
+http POST http://127.0.0.1:8000/api/posts/ "Authorization: Bearer ACCESS_TOKEN" content="Questo è il mio primo post da HTTPie!"
+# deploy
+http POST https://locomotive.pythonanywhere.com/api/posts/ "Authorization: Bearer ACCESS_TOKEN" content="Questo è il mio primo post da HTTPie!"
 ```
 
 **Modificare un Post:**
 Aggiorna il contenuto di un tuo post (es. il post con ID = 1) utilizzando il metodo PATCH. Consentito solo all'autore del post o a un Moderatore.
 ```bash
-http PATCH http://127.0.0.1:8000/api/posts/1/ "Authorization: Bearer TUO_TOKEN_ACCESS_QUI" content="Questo è il testo aggiornato del mio post!"
+# locale
+http PATCH http://127.0.0.1:8000/api/posts/1/ "Authorization: Bearer ACCESS_TOKEN" content="Questo è il testo aggiornato del mio post!"
+# deploy
+http PATCH https://locomotive.pythonanywhere.com/api/posts/1/ "Authorization: Bearer ACCESS_TOKEN" content="Questo è il testo aggiornato del mio post!"
 ```
 
 **Cancellare un Post:**
 Elimina un post specifico (es. il post con ID = 1). Consentito solo all'autore del post o a un Moderatore.
 ```bash
-http DELETE http://127.0.0.1:8000/api/posts/1/ "Authorization: Bearer TOKEN_UTENTE_STANDARD_QUI"
+# locale
+http DELETE http://127.0.0.1:8000/api/posts/1/ "Authorization: Bearer ACCESS_TOKEN"
+# deploy
+http DELETE https://locomotive.pythonanywhere.com/api/posts/1/ "Authorization: Bearer ACCESS_TOKEN"
 ```
 
 **Aggiungere (o rimuovere) un Like a un post (Toggle):**
 Esempio su un post con ID = 1.
 ```bash
-http POST http://127.0.0.1:8000/api/posts/1/like/ "Authorization: Bearer TUO_TOKEN_ACCESS_QUI"
+# locale
+http POST http://127.0.0.1:8000/api/posts/1/like/ "Authorization: Bearer ACCESS_TOKEN"
+# deploy
+http POST https://locomotive.pythonanywhere.com/api/posts/1/like/ "Authorization: Bearer ACCESS_TOKEN"
 ```
 
 **Iniziare a seguire un utente:**
 Aggiungi un utente (es. ID = 2) alla tua lista dei seguiti.
 ```bash
-http POST http://127.0.0.1:8000/api/users/following/ "Authorization: Bearer TUO_TOKEN_ACCESS_QUI" user_id=2
+# locale
+http POST http://127.0.0.1:8000/api/users/following/ "Authorization: Bearer ACCESS_TOKEN" user_id=2
+# deploy
+http POST https://locomotive.pythonanywhere.com/api/users/following/ "Authorization: Bearer ACCESS_TOKEN" user_id=2
 ```
 
 **Smettere di seguire un utente:**
 Usa il metodo DELETE sulla rotta di dettaglio.
 ```bash
-http DELETE http://127.0.0.1:8000/api/users/following/2/ "Authorization: Bearer TUO_TOKEN_ACCESS_QUI"
+# locale
+http DELETE http://127.0.0.1:8000/api/users/following/2/ "Authorization: Bearer ACCESS_TOKEN"
+# deploy
+http DELETE https://locomotive.pythonanywhere.com/api/users/following/2/ "Authorization: Bearer ACCESS_TOKEN"
 ```
 
 **Pubblicare un Commento su un Post:**
 Esempio per commentare il post con ID = 1.
 ```bash
-http POST http://127.0.0.1:8000/api/posts/1/comments/ "Authorization: Bearer TUO_TOKEN_ACCESS_QUI" content="Bel post, sono d'accordo!"
+# locale
+http POST http://127.0.0.1:8000/api/posts/1/comments/ "Authorization: Bearer ACCESS_TOKEN" content="Bel post, sono d'accordo!"
+# deploy
+http POST https://locomotive.pythonanywhere.com/api/posts/1/comments/ "Authorization: Bearer ACCESS_TOKEN" content="Bel post, sono d'accordo!"
 ```
 
 **Modificare un Commento:**
 Modifica il testo di un tuo commento (es. il commento con ID = 3 sotto al post con ID = 1). Consentito solo all'autore del commento o a un Moderatore.
 ```bash
-http PATCH http://127.0.0.1:8000/api/posts/1/comments/3/ "Authorization: Bearer TUO_TOKEN_ACCESS_QUI" content="Ho cambiato idea, questo è il commento modificato."
+# locale
+http PATCH http://127.0.0.1:8000/api/posts/1/comments/3/ "Authorization: Bearer ACCESS_TOKEN" content="Ho cambiato idea, questo è il commento modificato."
+# deploy
+http PATCH https://locomotive.pythonanywhere.com/api/posts/1/comments/3/ "Authorization: Bearer ACCESS_TOKEN" content="Ho cambiato idea, questo è il commento modificato."
 ```
 
 **Cancellare un Commento:**
 Elimina un commento specifico (es. il commento con ID = 3 sotto al post con ID = 1). Consentito solo all'autore del commento o a un Moderatore.
 ```bash
-http DELETE http://127.0.0.1:8000/api/posts/1/comments/3/ "Authorization: Bearer TUO_TOKEN_ACCESS_QUI"
+# locale
+http DELETE http://127.0.0.1:8000/api/posts/1/comments/3/ "Authorization: Bearer ACCESS_TOKEN"
+# deploy
+http DELETE https://locomotive.pythonanywhere.com/api/posts/1/comments/3/ "Authorization: Bearer ACCESS_TOKEN"
 ```
 
 ### 4. Testare i Permessi e i Ruoli
@@ -208,13 +246,19 @@ http DELETE http://127.0.0.1:8000/api/posts/1/comments/3/ "Authorization: Bearer
 **Tentativo di eliminazione vietata (Errore 403 Forbidden):**
 Prova a eliminare un post di un altro utente usando un account di tipo *Utente Standard*.
 ```bash
-http DELETE http://127.0.0.1:8000/api/posts/5/ "Authorization: Bearer TOKEN_UTENTE_STANDARD_QUI"
+# locale
+http DELETE http://127.0.0.1:8000/api/posts/5/ "Authorization: Bearer ACCESS_TOKEN"
+# deploy
+http DELETE https://locomotive.pythonanywhere.com/api/posts/5/ "Authorization: Bearer ACCESS_TOKEN"
 ```
 *Risposta attesa: L'API bloccherà la richiesta restituendo `403 Forbidden`.*
 
 ### 5. Effettuare il Logout (Blacklist)
 Per chiudere la sessione, invia il Refresh Token in modo che venga invalidato.
 ```bash
-http POST http://127.0.0.1:8000/api/logout/ "Authorization: Bearer TUO_TOKEN_ACCESS_QUI" refresh="TUO_TOKEN_REFRESH_QUI"
+# locale
+http POST http://127.0.0.1:8000/api/logout/ "Authorization: Bearer ACCESS_TOKEN" refresh="REFRESH_TOKEN"
+# deploy
+http POST https://locomotive.pythonanywhere.com/api/logout/ "Authorization: Bearer ACCESS_TOKEN" refresh="REFRESH_TOKEN"
 ```
 *Risposta attesa: `205 Reset Content`. Se provi a usare di nuovo quel refresh token per ottenere nuovi accessi, riceverai un errore `401 Unauthorized`.*
